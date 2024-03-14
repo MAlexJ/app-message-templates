@@ -1,0 +1,18 @@
+###
+GET http://localhost:8082/v1/templates
+
+###
+GET http://localhost:8082/v1/templates/65f31cc44b99d238c75c9be2
+
+###
+POST http://localhost:8082/v1/templates
+Content-Type: application/json
+
+{
+  "description": "Test",
+  "template": "<html></html>",
+  "isActive": true
+}
+
+###
+PATCH http://localhost:8082/v1/templates/65f31cc44b99d238c75c9be2
