@@ -1,8 +1,8 @@
 package com.malexj.controller;
 
-import com.malexj.model.request.MessageTemplateRequest;
-import com.malexj.model.response.MessageTemplateResponse;
-import com.malexj.service.MessageTemplateService;
+import com.malexj.model.request.TemplateRequest;
+import com.malexj.model.response.TemplateResponse;
+import com.malexj.service.TemplateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,23 +37,23 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/v1/templates")
 public class RestApiController {
 
-  private final MessageTemplateService service;
+  private final TemplateService service;
 
   @GetMapping
-  public ResponseEntity<Flux<MessageTemplateResponse>> findAll() {
+  public ResponseEntity<Flux<TemplateResponse>> findAll() {
     log.info("HTTP: find all templates");
     return ResponseEntity.ok(service.findAll());
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Mono<MessageTemplateResponse>> findById(@PathVariable String id) {
+  public ResponseEntity<Mono<TemplateResponse>> findById(@PathVariable String id) {
     log.info("HTTP: find template bu id - {}", id);
     return ResponseEntity.ok(service.findById(id));
   }
 
   @PostMapping
-  public ResponseEntity<Mono<MessageTemplateResponse>> create(
-      @RequestBody MessageTemplateRequest request) {
+  public ResponseEntity<Mono<TemplateResponse>> create(
+      @RequestBody TemplateRequest request) {
     log.info("HTTP: create new template - {}", request);
     return ResponseEntity.ok(service.save(request));
   }

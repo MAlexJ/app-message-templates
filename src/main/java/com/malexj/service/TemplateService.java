@@ -1,9 +1,9 @@
 package com.malexj.service;
 
 import com.malexj.mapper.ObjectMapper;
-import com.malexj.model.request.MessageTemplateRequest;
-import com.malexj.model.response.MessageTemplateResponse;
-import com.malexj.repository.MessageTemplateRepository;
+import com.malexj.model.request.TemplateRequest;
+import com.malexj.model.response.TemplateResponse;
+import com.malexj.repository.TemplateRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,21 +13,21 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MessageTemplateService {
+public class TemplateService {
 
   private final ObjectMapper mapper;
 
-  private final MessageTemplateRepository repository;
+  private final TemplateRepository repository;
 
-  public Flux<MessageTemplateResponse> findAll() {
+  public Flux<TemplateResponse> findAll() {
     return repository.findAll().map(mapper::entityToResponse);
   }
 
-  public Mono<MessageTemplateResponse> findById(String id) {
+  public Mono<TemplateResponse> findById(String id) {
     return repository.findById(id).map(mapper::entityToResponse);
   }
 
-  public Mono<MessageTemplateResponse> save(MessageTemplateRequest request) {
+  public Mono<TemplateResponse> save(TemplateRequest request) {
     return Mono.fromSupplier(() -> mapper.requestToEntity(request))
         .flatMap(repository::save)
         .map(mapper::entityToResponse);
@@ -35,7 +35,7 @@ public class MessageTemplateService {
 
   public Mono<Long> updateStatusEntity(String id) {
     return repository
-        .updateMessageTemplateStatusEntityById(id)
+        .updateTemplateStatusEntityById(id)
         .doOnNext(resp -> log.info("Records updated - {}", resp));
   }
 }

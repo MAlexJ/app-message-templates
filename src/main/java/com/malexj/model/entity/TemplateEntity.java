@@ -12,9 +12,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Data
-@Document(collection = "message_templates")
-@TypeAlias("MessageTemplateEntity")
-public class MessageTemplateEntity implements Persistable<String> {
+@Document(collection = "templates")
+@TypeAlias("TemplateEntity")
+public class TemplateEntity implements Persistable<String> {
   @MongoId private String id;
 
   private String description;

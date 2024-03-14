@@ -1,8 +1,8 @@
 package com.malexj.mapper;
 
-import com.malexj.model.entity.MessageTemplateEntity;
-import com.malexj.model.request.MessageTemplateRequest;
-import com.malexj.model.response.MessageTemplateResponse;
+import com.malexj.model.entity.TemplateEntity;
+import com.malexj.model.request.TemplateRequest;
+import com.malexj.model.response.TemplateResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -11,10 +11,10 @@ import org.mapstruct.Mapping;
 public interface ObjectMapper {
 
   @Mapping(source = "active", target = "isActive")
-  MessageTemplateResponse entityToResponse(MessageTemplateEntity entity);
+  TemplateResponse entityToResponse(TemplateEntity entity);
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "created", ignore = true)
   @Mapping(source = "isActive", target = "active")
-  MessageTemplateEntity requestToEntity(MessageTemplateRequest request);
+  TemplateEntity requestToEntity(TemplateRequest request);
 }
