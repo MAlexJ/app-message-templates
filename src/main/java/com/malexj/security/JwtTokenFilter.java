@@ -26,6 +26,7 @@ public class JwtTokenFilter implements WebFilter {
   private boolean provideJwtSecurity;
 
   public static final String HEADER_PREFIX = "Bearer ";
+  public static final String REST_API_PATH = "/v1";
 
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
@@ -38,7 +39,7 @@ public class JwtTokenFilter implements WebFilter {
 
   private static boolean onlyForRestApi(ServerHttpRequest request) {
     return Optional.ofNullable(request.getURI().getPath()).stream()
-        .anyMatch(path -> path.contains("/v1"));
+        .anyMatch(path -> path.contains(REST_API_PATH));
   }
 
   private Optional<String> resolveToken(ServerHttpRequest request) {
