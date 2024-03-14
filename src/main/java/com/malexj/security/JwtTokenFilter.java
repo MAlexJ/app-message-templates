@@ -29,10 +29,16 @@ public class JwtTokenFilter implements WebFilter {
 
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-    if (provideJwtSecurity) {
+    var request = exchange.getRequest();
+    if (onlyForRestApi(request) && provideJwtSecurity) {
       resolveToken(exchange.getRequest()).ifPresent(this::verifyJwtToken);
     }
     return chain.filter(exchange);
+  }
+
+  private static boolean onlyForRestApi(ServerHttpRequest request) {
+    return Optional.ofNullable(request.getURI().getPath()).stream()
+        .anyMatch(path -> path.contains("/v1"));
   }
 
   private Optional<String> resolveToken(ServerHttpRequest request) {
